@@ -5,7 +5,10 @@ class BookApp {
         this.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         this.loading = false;
         this.genres = new Set();
-        this.notyf= new Notyf();
+        this.notyf= new Notyf({  position: {
+            x: 'right',
+            y: 'top',
+          },});
         this.init();
     }
     async init() {
