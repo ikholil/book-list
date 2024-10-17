@@ -30,19 +30,25 @@ class WishlistApp {
 
         this.books.forEach(book => {
             const genres = book.subjects.length ? book.subjects.join(', ') : 'Unknown genre';
-            
-            const bookCard = `
-                <div class="book-card">
+            const bookCard = document.createElement('div');
+            bookCard.classList.add('book-card');
+            bookCard.innerHTML = `
+                 <div class="book-image">
                     <img src="${book.formats['image/jpeg']}" alt="${book.title}">
-                    <h3>${book.title}</h3>
-                    <p>Author: ${book.authors[0]?.name || 'Unknown'}</p>
-                    <p>Genre: ${genres}</p>
-                    <span class="remove-wishlist" onclick="wishlistApp.removeFromWishlist(${book.id})">
+                </div>
+                <div class="book-info">
+                <h3>${book.title}</h3>
+                <p class="author">By ${book.authors[0]?.name || 'Unknown'}</p>
+                <p class="genre">Genre: ${genres}</p>
+                <div class="bottom-info">
+                <p>Book id: ${book.id}</p>
+                <span class="remove-wishlist" onclick="wishlistApp.removeFromWishlist(${book.id})">
                         ❌ Remove from Wishlist
                     </span>
                 </div>
+                </div>
             `;
-            wishlistBooks.innerHTML += bookCard;
+            wishlistBooks.appendChild(bookCard);
         });
     }
 

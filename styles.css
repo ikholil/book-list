@@ -132,7 +132,7 @@ body {
 }
 .book-card h3 {
   font-size: 24px;
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     font-size: 32px;
   }
   margin-bottom: 6px;
@@ -159,28 +159,64 @@ body {
   }
 }
 .book-card .add-to-wishlist {
-  font-size: 20px;
+  font-size: 16px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
+}
+.book-card .remove-wishlist {
+  font-size: 16px;
+  cursor: pointer;
 }
 
 /* Loader Styles */
 .loader {
-  margin-top: 24px;
-  border: 8px solid var(--secondary-color); /* Light grey */
-  border-top: 8px solid var(--primary-color); /* Blue */
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.loader-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+}
+.loader-wrapper h5 {
+  font-size: 1.3rem;
+  color: var(--light-color);
+}
+.loader-inner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader-inner::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #ff3d00;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
 }
 
-/* Loader Animation */
-@keyframes spin {
+@keyframes rotation {
   0% {
     transform: rotate(0deg);
   }

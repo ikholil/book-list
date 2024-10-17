@@ -49,7 +49,7 @@ class BookApp {
                 <p class="genre">Genre: ${genres}</p>
                 <div class="bottom-info">
                 <p>Book id: ${book.id}</p>
-                <button class="add-to-wishlist" onclick="bookApp.toggleWishlist(${book.id})" data-id="${book.id}"> ${isWishlisted ? '❤️' : '🤍'}</button>
+                <button class="add-to-wishlist" onclick="bookApp.toggleWishlist(${book.id})" data-id="${book.id}"> ${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'} ${isWishlisted ? '❤️' : '🤍'}</button>
                 </div>
                 </div>
             `;
