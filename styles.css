@@ -1,0 +1,125 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --white-color: #fff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--light-color);
+}
+.container {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.navbar {
+  padding: 20px 12px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+.nav-inner .logo {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: var(--dark-color);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  gap: 12px;
+}
+.menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+.menu a:hover {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+/* book list */
+
+.books {
+  padding: 60px 0;
+  @media (min-width: 992px) {
+    padding: 120px 0;
+  }
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 32px;
+  text-align: center;
+  line-height: 48px;
+  color: var(--dark-color);
+}
+
+#book-list {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.book-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--light-color);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  background-color: var(--white-color);
+}
+
+/* Loader Styles */
+.loader {
+  margin-top: 24px;
+  border: 8px solid var(--secondary-color); /* Light grey */
+  border-top: 8px solid var(--primary-color); /* Blue */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
