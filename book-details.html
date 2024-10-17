@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Book details</h2>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Book Details</title>
+  </head>
+  <body>
+    <!-- loader -->
+    <div id="loader" class="loader" style="display: none">
+      <div class="loader-wrapper">
+        <span class="loader-inner"></span>
+        <h5>Loading Books...</h5>
+      </div>
+    </div>
+    <!-- navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-inner">
+          <a class="logo" href="index.html">Bookist</a>
+          <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="wishlist.html">Wishlist</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- book details -->
+    <section class="book-details">
+      <div class="container">
+        <h2 class="section-title">Book Details</h2>
+        <div id="bookDetails"></div>
+      </div>
+    </section>
+
+    <script src="details.js"></script>
+  </body>
 </html>

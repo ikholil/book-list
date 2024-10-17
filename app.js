@@ -51,6 +51,7 @@ class BookApp {
                 <p>Book id: ${book.id}</p>
                 <button class="add-to-wishlist" onclick="bookApp.toggleWishlist(${book.id})" data-id="${book.id}"> ${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'} ${isWishlisted ? '❤️' : '🤍'}</button>
                 </div>
+                <a href="book-details.html?id=${book.id}" class="view-details">View Details</a>
                 </div>
             `;
             bookList.appendChild(bookCard);
