@@ -1,17 +1,18 @@
-class BookApp{
-    constructor(){
-        this.books = [];       
+class BookApp {
+    constructor() {
+        this.books = [];
         this.filteredBooks = [];
-        this.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];   
-        this.loading = false;   
-        this.genres = new Set();  
+        this.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        this.loading = false;
+        this.genres = new Set();
+        this.notyf= new Notyf();
         this.init();
-    }   
-    async init(){
-        this.addEventListeners();
-        await this.fetchBooks();       
     }
-    async fetchBooks(page=1){
+    async init() {
+        this.addEventListeners();
+        await this.fetchBooks();
+    }
+    async fetchBooks(page = 1) {
         this.toggleLoader(true);
 
         try {
@@ -27,9 +28,9 @@ class BookApp{
             this.toggleLoader(false);
         }
     }
-    displayBooks(books){
-        const bookList = document.getElementById('book-list');     
-        bookList.innerHTML = '';        
+    displayBooks(books) {
+        const bookList = document.getElementById('book-list');
+        bookList.innerHTML = '';
         books.forEach(book => {
             const isWishlisted = this.wishlist.includes(book.id);
             const bookCard = document.createElement('div');
@@ -40,11 +41,13 @@ class BookApp{
                     <img src="${book.formats['image/jpeg']}" alt="${book.title}">
                 </div>
                 <div class="book-info">
-                    <p>Book id: ${book.id} }</p>
-                    <h4>${book.title}</h4>
-                     <p>Author: ${book.authors[0]?.name || 'Unknown'}</p>
-                     <p>Genre: ${genres}</p>
-                    <button class="add-to-wishlist" onclick="bookApp.toggleWishlist(${book.id})" data-id="${book.id}"> ${isWishlisted ? '❤️' : '🤍'}</button>
+                <h3>${book.title}</h3>
+                <p class="author">By ${book.authors[0]?.name || 'Unknown'}</p>
+                <p class="genre">Genre: ${genres}</p>
+                <div class="bottom-info">
+                <p>Book id: ${book.id}</p>
+                <button class="add-to-wishlist" onclick="bookApp.toggleWishlist(${book.id})" data-id="${book.id}"> ${isWishlisted ? '❤️' : '🤍'}</button>
+                </div>
                 </div>
             `;
             bookList.appendChild(bookCard);
@@ -73,8 +76,10 @@ class BookApp{
     toggleWishlist(id) {
         if (this.wishlist.includes(id)) {
             this.wishlist = this.wishlist.filter(bookId => bookId !== id);
+            this.notyf.error('Book removed from wishlist!');
         } else {
             this.wishlist.push(id);
+            this.notyf.success('Book added to wishlist!');
         }
         localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
         this.displayBooks(this.books);
@@ -83,11 +88,11 @@ class BookApp{
         // Search bar filtering
         document.getElementById('searchBar').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            this.filteredBooks = this.books.filter(book => 
+            this.filteredBooks = this.books.filter(book =>
                 book.title.toLowerCase().includes(searchTerm)
             );
             this.displayBooks(this.filteredBooks);
-        }); 
+        });
 
         // Genre filtering
         document.getElementById('genreFilter').addEventListener('change', (e) => {
@@ -97,7 +102,7 @@ class BookApp{
                 this.displayBooks(this.books);
             } else {
                 // Filter books by the selected genre
-                const filteredByGenre = this.books.filter(book => 
+                const filteredByGenre = this.books.filter(book =>
                     book.subjects.includes(selectedGenre)
                 );
                 this.displayBooks(filteredByGenre);

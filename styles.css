@@ -72,21 +72,41 @@ body {
   text-align: center;
   line-height: 48px;
   color: var(--dark-color);
+  margin-bottom: 20px;
 }
-
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+.search {
+  width: 100%;
+  max-width: 300px;
+  padding: 9px 16px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  line-height: 24px;
+}
+.genre-filter {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 16px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  line-height: 24px;
+}
 #book-list {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   @media (min-width: 992px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-  }
-  @media (min-width: 1400px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -97,6 +117,51 @@ body {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   background-color: var(--white-color);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
+  @media (min-width: 580px) {
+    flex-direction: row;
+  }
+}
+.book-card img {
+  flex-shrink: 0;
+  width: 160px;
+  height: 100%;
+}
+.book-card h3 {
+  font-size: 24px;
+  @media (min-width: 992px) {
+    font-size: 32px;
+  }
+  margin-bottom: 6px;
+}
+.book-card .author {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+.book-card .genre {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+.book-card .bottom-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.book-card .bottom-info p {
+  font-size: 14px;
+  line-height: 24px;
+  @media (min-width: 992px) {
+    font-size: 16px;
+  }
+}
+.book-card .add-to-wishlist {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
 }
 
 /* Loader Styles */

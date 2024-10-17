@@ -25,7 +25,7 @@ class WishlistApp {
     }
 
     displayWishlistBooks() {
-        const wishlistBooks = document.getElementById('wishlistBooks');
+        const wishlistBooks = document.getElementById('book-list');
         wishlistBooks.innerHTML = '';
 
         this.books.forEach(book => {
