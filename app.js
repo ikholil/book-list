@@ -3,12 +3,16 @@ class BookApp {
         this.books = [];
         this.filteredBooks = [];
         this.wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        this.nextPage = null;
+        this.prevPage = null;
         this.loading = false;
         this.genres = new Set();
-        this.notyf= new Notyf({  position: {
-            x: 'right',
-            y: 'top',
-          },});
+        this.notyf = new Notyf({
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+        });
         this.init();
     }
     async init() {
@@ -22,9 +26,13 @@ class BookApp {
             const response = await fetch(`https://gutendex.com/books/?page=${page}`);
             const data = await response.json();
             this.books = data.results;
+            this.nextPage = this.getPageNumber(data.next);
+            this.prevPage = this.getPageNumber(data.previous);
 
             this.populateGenres();
             this.displayBooks(this.books);
+            this.disableOrEnableButtons();
+
         } catch (error) {
             console.error('Error fetching books:', error);
         } finally {
@@ -57,6 +65,11 @@ class BookApp {
             bookList.appendChild(bookCard);
         });
     }
+    getPageNumber(url) {
+        if (url === null) return null;
+        const params = new URLSearchParams(url.split('?')[1]);
+        return params.get('page');
+    }
     toggleLoader(show) {
         const loader = document.getElementById('loader');
         loader.style.display = show ? 'block' : 'none';
@@ -69,7 +82,6 @@ class BookApp {
         });
 
         const genreFilter = document.getElementById('genreFilter');
-        console.log(this.genres)
         this.genres.forEach(genre => {
             const option = document.createElement('option');
             option.value = genre;
@@ -112,6 +124,34 @@ class BookApp {
                 this.displayBooks(filteredByGenre);
             }
         });
+        // goto previous page
+        document.getElementById("prev").addEventListener('click', () => {
+            if (this.prevPage) {
+                this.fetchBooks(this.prevPage);
+            }
+        })
+
+        // goto next page
+        document.getElementById("next").addEventListener('click', () => {
+            if (this.nextPage) {
+                this.fetchBooks(this.nextPage);
+            }
+        })
+
+    }
+
+    disableOrEnableButtons() {
+        if(this.nextPage === null) {
+            document.getElementById("next").disabled = true;
+        } else {
+            document.getElementById("next").disabled = false;
+        }
+
+        if(this.prevPage === null) {
+            document.getElementById("prev").disabled = true;
+        } else {
+            document.getElementById("prev").disabled = false;
+        }
     }
 }
 

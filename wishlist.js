@@ -19,9 +19,10 @@ class WishlistApp {
         this.displayWishlistBooks();
     }
 
-    async fetchWishlistBooks() {
-        const fetchPromises = this.wishlist.map(id => fetch(`https://gutendex.com/books/${id}`).then(res => res.json()));
-        this.books = await Promise.all(fetchPromises);
+    async fetchWishlistBooks() {     
+        const response = await fetch(`https://gutendex.com/books?ids=${this.wishlist.map(id => `${id}`).join(',')}`);
+        const data = await response.json();
+        this.books = data.results;       
     }
 
     displayWishlistBooks() {
