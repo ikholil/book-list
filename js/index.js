@@ -18,6 +18,7 @@ class BookApp {
     async init() {
         this.addEventListeners();
         await this.fetchBooks();
+        this.setActiveMenu();
     }
     async fetchBooks(page = 1) {
         this.toggleLoader(true);
@@ -29,7 +30,6 @@ class BookApp {
             this.nextPage = this.getPageNumber(data.next);
             this.prevPage = this.getPageNumber(data.previous);
 
-            console.log('fetchBooks', this.prevPage, this.nextPage);
             this.populateGenres();
             this.displayBooks(this.books);
             this.disableOrEnableButtons();
@@ -155,6 +155,15 @@ class BookApp {
         if (this.prevPage !== null) {
             prevButton.disabled = false;
         }
+    }
+
+    setActiveMenu(){
+        const menuLinks = document.querySelectorAll('.menu-link');
+        menuLinks.forEach(link => {
+            if (link.href.includes(window.location.pathname)) {
+                link.classList.add('active');
+            }
+        });
     }
 }
 

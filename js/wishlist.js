@@ -17,6 +17,7 @@ class WishlistApp {
         
         this.toggleLoader(false);
         this.displayWishlistBooks();
+        this.setActiveMenu()
     }
 
     async fetchWishlistBooks() {     
@@ -63,6 +64,14 @@ class WishlistApp {
     toggleLoader(show) {
         const loader = document.getElementById('loader');
         loader.style.display = show ? 'block' : 'none';
+    }
+    setActiveMenu(){
+        const menuLinks = document.querySelectorAll('.menu-link');
+        menuLinks.forEach(link => {
+            if (link.href.includes(window.location.pathname)) {
+                link.classList.add('active');
+            }
+        });
     }
 }
 

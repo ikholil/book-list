@@ -68,6 +68,7 @@ class BookDetails {
         const loader = document.getElementById('loader');
         loader.style.display = show ? 'block' : 'none';
     }
+   
 }
 
 const bookDetails = new BookDetails();
