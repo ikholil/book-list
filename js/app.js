@@ -21,7 +21,7 @@ class BookApp {
     }
     async fetchBooks(page = 1) {
         this.toggleLoader(true);
-
+        
         try {
             const response = await fetch(`https://gutendex.com/books/?page=${page}`);
             const data = await response.json();
@@ -29,6 +29,7 @@ class BookApp {
             this.nextPage = this.getPageNumber(data.next);
             this.prevPage = this.getPageNumber(data.previous);
 
+            console.log('fetchBooks', this.prevPage, this.nextPage);
             this.populateGenres();
             this.displayBooks(this.books);
             this.disableOrEnableButtons();
@@ -68,7 +69,7 @@ class BookApp {
     getPageNumber(url) {
         if (url === null) return null;
         const params = new URLSearchParams(url.split('?')[1]);
-        return params.get('page');
+        return params.get('page') || 1;
     }
     toggleLoader(show) {
         const loader = document.getElementById('loader');
@@ -141,16 +142,18 @@ class BookApp {
     }
 
     disableOrEnableButtons() {
-        if(this.nextPage === null) {
-            document.getElementById("next").disabled = true;
-        } else {
-            document.getElementById("next").disabled = false;
+        const nextButton = document.getElementById("next");
+        const prevButton = document.getElementById("prev");
+    
+        nextButton.disabled = true;
+        prevButton.disabled = true;
+    
+        if (this.nextPage !== null) {
+            nextButton.disabled = false;
         }
-
-        if(this.prevPage === null) {
-            document.getElementById("prev").disabled = true;
-        } else {
-            document.getElementById("prev").disabled = false;
+    
+        if (this.prevPage !== null) {
+            prevButton.disabled = false;
         }
     }
 }
